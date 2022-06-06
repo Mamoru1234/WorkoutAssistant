@@ -5,17 +5,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.workoutassistant.ui.components.AppTopBar
 import com.example.workoutassistant.ui.screen.MainScreen
+import com.example.workoutassistant.ui.screen.NewTrainingScreen
+import com.example.workoutassistant.ui.screen.SelectExerciseScreen
 import com.example.workoutassistant.ui.theme.WorkoutAssistantTheme
 
 class MainActivity : ComponentActivity() {
@@ -24,17 +24,22 @@ class MainActivity : ComponentActivity() {
         setContent {
             WorkoutAssistantTheme {
                 val navController = rememberNavController()
-                Scaffold {
+                Scaffold (
+                    topBar = { AppTopBar(navController = navController) },
+                ){
                     NavHost(
                         navController = navController,
                         startDestination = "main",
                         modifier = Modifier.padding(it)
                     ) {
-                        composable("main") {
+                        composable(AppNavItem.MAIN.route) {
                             MainScreen(navController)
                         }
-                        composable("new_training") {
-                            Text(text = "New training")
+                        composable(AppNavItem.NEW_TRAINING.route) {
+                            NewTrainingScreen(navController = navController)
+                        }
+                        composable(AppNavItem.SELECT_EXERCISE.route) {
+                            SelectExerciseScreen(navController = navController)
                         }
                     }
                 }

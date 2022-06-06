@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.example.workoutassistant.AppNavItem
 
 @Composable
 fun MainScreen(navController: NavController) {
@@ -18,7 +19,7 @@ fun MainScreen(navController: NavController) {
     ) {
         Column {
             Text("Main screen")
-            Button(onClick = { navController.navigate("new_training") }) {
+            Button(onClick = { navController.navigate(AppNavItem.NEW_TRAINING.route) }) {
                 Text("New training")
             }
         }
