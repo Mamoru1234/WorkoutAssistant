@@ -1,5 +1,6 @@
 package com.example.workoutassistant.ui.components
 
+import android.util.Log
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -14,12 +15,15 @@ import com.example.workoutassistant.AppNavItem
 @Composable
 fun AppTopBar(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+    Log.d("AppTopBar", "current route ${navBackStackEntry?.destination?.route}")
     val currentNavItem by remember {
         derivedStateOf { AppNavItem.values().find { navBackStackEntry?.destination?.route == it.route } }
     }
     TopAppBar(
         navigationIcon = {
-            IconButton(onClick = { navController.popBackStack() }) {
+            IconButton(onClick = {
+                navController.navigateUp()
+            }) {
                 Icon(Icons.Filled.ArrowBack, "backIcon")
             }
         },
