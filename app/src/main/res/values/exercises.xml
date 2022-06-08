@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="push_up">Push ups</string>
+    <string name="backward_lunge">Backward lunge</string>
+    <string name="leg_raises">Leg raises</string>
+    <string name="jumping_jacks">Jumping jacks</string>
 </resources>
