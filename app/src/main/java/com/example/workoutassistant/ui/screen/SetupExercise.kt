@@ -31,7 +31,7 @@ fun SetupExerciseScreen(navController: NavController, entry: NavBackStackEntry, 
             type = exerciseData.type,
             onChange = { exerciseDurationState.value = it })
         Button(onClick = {
-            viewModel.selectExercise(exerciseData)
+            viewModel.selectExercise(exerciseData, exerciseDurationState.value)
             navController.navigate(AppNavItem.NEW_TRAINING.route) {
                 popUpTo(AppNavItem.NEW_TRAINING.route) {
                     inclusive = true

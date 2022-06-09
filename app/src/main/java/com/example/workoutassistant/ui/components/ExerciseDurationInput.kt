@@ -34,20 +34,12 @@ fun ExerciseDurationInput(
             Icon(Icons.Filled.Remove, "decrease", Modifier.clickable {
                 onChange(value.decrease(type))
             })
-            Text(text = formatDuration(value, type), modifier = Modifier
+            Text(text = value.format(type), modifier = Modifier
                 .padding(PaddingValues(horizontal = 4.dp)))
             Icon(Icons.Filled.Add, "increase", Modifier.clickable {
                 onChange(value.increase(type))
             })
         }   
-    }
-}
-
-fun formatDuration(value: ExerciseDuration, type: ExerciseType): String {
-    return when(type) {
-        ExerciseType.Timing -> value.time.seconds.toString()
-        ExerciseType.DoubleCountable -> (value.count / 2).toString()
-        ExerciseType.Countable -> value.count.toString()
     }
 }
 

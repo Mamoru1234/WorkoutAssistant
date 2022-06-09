@@ -1,9 +1,6 @@
 package com.example.workoutassistant.ui.screen
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
@@ -16,8 +13,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.workoutassistant.data.ExerciseData
+import com.example.workoutassistant.data.ExerciseDuration
 import com.example.workoutassistant.data.getAllExercises
 import com.example.workoutassistant.model.NewTrainingModel
+import com.example.workoutassistant.ui.components.ExerciseDurationView
 import com.example.workoutassistant.ui.theme.WorkoutAssistantTheme
 import com.example.workoutassistant.vendor.activityViewModel
 
@@ -27,7 +26,7 @@ fun SelectExerciseScreen(navController: NavController, viewModel: NewTrainingMod
         Text("Select exercise screen")
         LazyColumn(Modifier.padding(PaddingValues(all= 4.dp))){
             items(viewModel.exercises, key = { it.id }) {
-                ExerciseItemView(exerciseData = it) {
+                ExerciseItemView(exerciseData = it, duration = it.defaultDuration) {
                     navController.navigate("setup_exercise?exercise_id=${it.id}")
                 }
             }
@@ -37,9 +36,13 @@ fun SelectExerciseScreen(navController: NavController, viewModel: NewTrainingMod
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ExerciseItemView(exerciseData: ExerciseData, onClick: () -> Unit) {
+fun ExerciseItemView(exerciseData: ExerciseData, duration: ExerciseDuration, onClick: () -> Unit = {}) {
     Card(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
-        Text(text = stringResource(exerciseData.title), Modifier.padding(PaddingValues(all = 8.dp)))
+        Column(modifier = Modifier.padding(PaddingValues(all = 8.dp))) {
+            Text(text = stringResource(exerciseData.title))
+            Spacer(modifier = Modifier.padding(4.dp))
+            ExerciseDurationView(duration = duration, type = exerciseData.type)
+        }
     }
 }
 
@@ -47,6 +50,7 @@ fun ExerciseItemView(exerciseData: ExerciseData, onClick: () -> Unit) {
 @Composable
 fun ExerciseItemPreView() {
     WorkoutAssistantTheme {
-        ExerciseItemView(exerciseData = getAllExercises()[0]) {}
+        val exerciseData = getAllExercises()[0]
+        ExerciseItemView(exerciseData = exerciseData, exerciseData.defaultDuration) {}
     }
 }

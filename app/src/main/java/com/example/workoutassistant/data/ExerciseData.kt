@@ -22,6 +22,15 @@ data class ExerciseDuration(
             ExerciseType.DoubleCountable -> this.copy(count = this.count + 2)
         }
     }
+
+    fun format(type: ExerciseType): String {
+        return when(type) {
+            ExerciseType.Timing -> this.time.seconds.toString()
+            ExerciseType.DoubleCountable -> (this.count / 2).toString()
+            ExerciseType.Countable -> this.count.toString()
+        }
+    }
+
     fun decrease(type: ExerciseType): ExerciseDuration {
         return when(type) {
             ExerciseType.Countable -> {
