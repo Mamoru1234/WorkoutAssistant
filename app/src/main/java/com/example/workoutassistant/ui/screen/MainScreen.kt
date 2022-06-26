@@ -8,10 +8,12 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.workoutassistant.AppNavItem
 import com.example.workoutassistant.model.NewTrainingModel
 import com.example.workoutassistant.vendor.activityViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen(navController: NavController, viewModel: NewTrainingModel = activityViewModel()) {
@@ -22,8 +24,10 @@ fun MainScreen(navController: NavController, viewModel: NewTrainingModel = activ
         Column {
             Text("Main screen")
             Button(onClick = {
-                viewModel.setup()
-                navController.navigate(AppNavItem.NEW_TRAINING.route)
+                viewModel.viewModelScope.launch {
+                    viewModel.setup()
+                    navController.navigate(AppNavItem.NEW_TRAINING.route)
+                }
             }) {
                 Text("New training")
             }

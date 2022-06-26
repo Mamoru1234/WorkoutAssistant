@@ -3,7 +3,9 @@ package com.example.workoutassistant.vendor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -14,7 +16,7 @@ inline fun <reified T : ViewModel, S : ViewModelStoreOwner> viewModelInStore(sto
     runCatching {
         var result: Result<T>? = null
         CompositionLocalProvider(LocalViewModelStoreOwner provides store) {
-            result = runCatching { viewModel(T::class.java) }
+            result = runCatching { hiltViewModel() }
         }
         result!!.getOrThrow()
     }

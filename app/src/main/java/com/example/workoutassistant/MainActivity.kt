@@ -23,8 +23,10 @@ import com.example.workoutassistant.ui.screen.NewTrainingScreen
 import com.example.workoutassistant.ui.screen.SelectExerciseScreen
 import com.example.workoutassistant.ui.screen.SetupExerciseScreen
 import com.example.workoutassistant.ui.theme.WorkoutAssistantTheme
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
